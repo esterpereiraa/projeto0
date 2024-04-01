@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 #include "tarefas.h"
 
 ERROS criar(Tarefa tarefas[], int *pos ){
@@ -22,7 +23,23 @@ ERROS criar(Tarefa tarefas[], int *pos ){
     return OK;
 }
 ERROS deletar(Tarefa tarefas[], int *pos ){
-    printf("Funçao de deletar tarefas\n");
+    // teste se existem tarefas
+    if (*pos == 0)
+        return SEM_TAREFAS;
+    // verfica se a tarefa escolhida existe
+    int pos_deletar;
+    printf("ENtre com a posição da tarefa a ser deletada: ");
+    scanf("%d", &pos_deletar);
+    pos_deletar--; // garantir posiçao certa no array
+    if(pos_deletar >= *pos || pos_deletar <0)
+        return NAO_ENCONTRADA;
+
+    for (int i = pos_deletar; i<*pos;i++){
+        tarefas[i].prioridade = tarefas[i+1].prioridade;
+        strcpy(tarefas[i].categoria , tarefas[i+1].categoria);
+        strcpy(tarefas[i].descricao , tarefas[i+1].descricao);
+    }
+    *pos = *pos-1;
     return OK;
 }
 ERROS listar(Tarefa tarefas[], int *pos ){
