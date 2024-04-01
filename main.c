@@ -30,4 +30,5 @@ int main(){
         
         
     }while (opcao>=0);
+    fs[3](tarefas,&pos);
 }
